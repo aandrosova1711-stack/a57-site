@@ -1,0 +1,2 @@
+{"_id":"admin001","email":"admin@a-57.ru","password":"$2b$12$y3XZ85twLIxOABj/b.prG.Urr/XPwVva28VKGgoySxMAeR3/.eBW6","role":"admin","firstName":"Александр","lastName":"Администратор","phone":"+7 (921) 000-00-00","createdAt":"2026-05-06T09:31:07.994Z"}
+{"_id":"client001","email":"demo@client.ru","password":"$2b$12$YKtBIX3IYypeW67H3tn7sumuswWkOLFrXFtPPWn0pHW3hJtmrzUUe","role":"client","firstName":"Мария","lastName":"Иванова","phone":"+7 (921) 123-45-67","companyName":"Кафе \"Уют\"","objectAddress":"Красносельский р-н, ул. Примерная, д. 5","createdAt":"2026-05-06T09:31:08.325Z"}
