@@ -1,7 +1,6 @@
 'use client';
 import { useState } from 'react';
 import { toast } from 'sonner';
-import { Zap, Droplets, Wind, Hammer, Shield, Clock, FileCheck, CheckCircle, Menu, X, Star, ArrowRight } from 'lucide-react';
 
 export default function HomePage() {
   const [menuOpen, setMenuOpen] = useState(false);
@@ -28,7 +27,7 @@ export default function HomePage() {
     setSubmitting(false);
   };
 
-  const inp = "width:100%;border:1px solid #e5e7eb;border-radius:12px;padding:12px 16px;font-size:14px;outline:none;box-sizing:border-box;";
+  const inputStyle: React.CSSProperties = { width: '100%', border: '1px solid #e5e7eb', borderRadius: 12, padding: '12px 16px', fontSize: 14, outline: 'none', boxSizing: 'border-box' };
 
   return (
     <div style={{ minHeight: '100vh', fontFamily: 'Inter, sans-serif', color: '#1a1a1a' }}>
@@ -36,8 +35,8 @@ export default function HomePage() {
       {/* NAV */}
       <nav style={{ position: 'fixed', top: 0, left: 0, right: 0, zIndex: 50, background: 'rgba(255,255,255,0.97)', borderBottom: '1px solid #f0f0f0', boxShadow: '0 1px 8px rgba(0,0,0,0.06)' }}>
         <div style={{ maxWidth: 1200, margin: '0 auto', padding: '0 24px', display: 'flex', alignItems: 'center', justifyContent: 'space-between', height: 64 }}>
-          <span style={{ fontSize: 24, fontWeight: 800, color: '#1B3A2F', fontFamily: 'Manrope, sans-serif' }}>А-57</span>
-          <div style={{ display: 'flex', gap: 24, alignItems: 'center' }}>
+          <a href="/" style={{ fontSize: 24, fontWeight: 800, color: '#1B3A2F', fontFamily: 'Manrope, sans-serif', textDecoration: 'none' }}>А-57</a>
+          <div className="nav-links">
             <a href="#about" style={{ color: '#555', textDecoration: 'none', fontSize: 14, fontWeight: 500 }}>О нас</a>
             <a href="#services" style={{ color: '#555', textDecoration: 'none', fontSize: 14, fontWeight: 500 }}>Услуги</a>
             <a href="#team" style={{ color: '#555', textDecoration: 'none', fontSize: 14, fontWeight: 500 }}>Команда</a>
@@ -45,24 +44,43 @@ export default function HomePage() {
             <a href="#contact" style={{ padding: '8px 16px', border: '1.5px solid #1B3A2F', borderRadius: 10, color: '#1B3A2F', textDecoration: 'none', fontSize: 14, fontWeight: 600 }}>Заявка</a>
             <a href="/login" style={{ padding: '8px 16px', background: '#1B3A2F', borderRadius: 10, color: '#fff', textDecoration: 'none', fontSize: 14, fontWeight: 600 }}>Личный кабинет</a>
           </div>
+          <button className="nav-burger" onClick={() => setMenuOpen(!menuOpen)} aria-label="Меню">
+            {menuOpen ? (
+              <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#1B3A2F" strokeWidth="2"><path d="M18 6L6 18M6 6l12 12"/></svg>
+            ) : (
+              <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#1B3A2F" strokeWidth="2"><path d="M3 12h18M3 6h18M3 18h18"/></svg>
+            )}
+          </button>
         </div>
       </nav>
 
+      {/* MOBILE MENU */}
+      {menuOpen && (
+        <div className="mobile-menu" onClick={() => setMenuOpen(false)}>
+          <a href="#about">О нас</a>
+          <a href="#services">Услуги</a>
+          <a href="#team">Команда</a>
+          <a href="#contact">Контакты</a>
+          <a href="#contact" style={{ padding: '12px 24px', border: '2px solid #1B3A2F', borderRadius: 12 }}>Оставить заявку</a>
+          <a href="/login" style={{ padding: '12px 24px', background: '#1B3A2F', color: '#fff', borderRadius: 12 }}>Личный кабинет</a>
+        </div>
+      )}
+
       {/* HERO */}
-      <section style={{ background: 'linear-gradient(135deg, #0f2318 0%, #1B3A2F 55%, #2D6E5E 100%)', paddingTop: 120, paddingBottom: 80 }}>
-        <div style={{ maxWidth: 1200, margin: '0 auto', padding: '0 24px', display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 60, alignItems: 'center' }}>
+      <section style={{ background: 'linear-gradient(135deg, #0f2318 0%, #1B3A2F 55%, #2D6E5E 100%)', paddingTop: 100, paddingBottom: 60 }}>
+        <div style={{ maxWidth: 1200, margin: '0 auto', padding: '0 24px' }} className="grid-hero">
           <div style={{ color: '#fff' }}>
             <div style={{ display: 'inline-flex', alignItems: 'center', gap: 8, background: 'rgba(255,255,255,0.12)', border: '1px solid rgba(255,255,255,0.2)', padding: '6px 16px', borderRadius: 999, fontSize: 13, marginBottom: 24, color: 'rgba(255,255,255,0.85)' }}>
               ★ Санкт-Петербург
             </div>
-            <h1 style={{ fontSize: 56, fontWeight: 800, lineHeight: 1.15, margin: '0 0 16px', fontFamily: 'Manrope, sans-serif' }}>
+            <h1 className="hero-title" style={{ fontWeight: 800, lineHeight: 1.15, margin: '0 0 16px', fontFamily: 'Manrope, sans-serif' }}>
               А-57<br /><span style={{ color: '#6ee7b7' }}>Эксплуатация</span>
             </h1>
-            <p style={{ fontSize: 18, color: 'rgba(255,255,255,0.8)', marginBottom: 24, lineHeight: 1.6 }}>
+            <p style={{ fontSize: 17, color: 'rgba(255,255,255,0.8)', marginBottom: 24, lineHeight: 1.6 }}>
               Комплексное обслуживание инженерных систем и зданий для малого бизнеса
             </p>
             <div style={{ display: 'flex', gap: 8, flexWrap: 'wrap', marginBottom: 32 }}>
-              {['Александр', 'a-57service@mail.ru', 'a-57.рф'].map(t => (
+              {['a-57service@mail.ru', 'a-57.рф'].map(t => (
                 <span key={t} style={{ padding: '6px 14px', background: 'rgba(255,255,255,0.12)', border: '1px solid rgba(255,255,255,0.2)', borderRadius: 10, fontSize: 13, color: 'rgba(255,255,255,0.9)' }}>{t}</span>
               ))}
             </div>
@@ -94,20 +112,20 @@ export default function HomePage() {
       </section>
 
       {/* ABOUT */}
-      <section id="about" style={{ padding: '80px 24px', background: '#F8F7FC' }}>
+      <section id="about" style={{ padding: '60px 24px', background: '#F8F7FC' }}>
         <div style={{ maxWidth: 1200, margin: '0 auto' }}>
-          <div style={{ textAlign: 'center', marginBottom: 56 }}>
+          <div style={{ textAlign: 'center', marginBottom: 48 }}>
             <div style={{ fontSize: 12, fontWeight: 700, color: '#6B4FA0', textTransform: 'uppercase', letterSpacing: '0.1em', marginBottom: 12 }}>О нас</div>
-            <h2 style={{ fontSize: 36, fontWeight: 800, color: '#1B3A2F', fontFamily: 'Manrope, sans-serif', margin: 0 }}>Зачем нужна А-57?</h2>
+            <h2 className="section-title" style={{ fontWeight: 800, color: '#1B3A2F', fontFamily: 'Manrope, sans-serif', margin: 0 }}>Зачем нужна А-57?</h2>
           </div>
-          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: 24 }}>
+          <div className="grid-3">
             {[
               { title: 'В чём суть проблемы?', text: 'Владельцы кафе, салонов и офисов вынуждены сами решать технические проблемы и искать отдельных специалистов под каждую поломку: электрика, сантехника, вентиляционщика, плотника.' },
               { title: 'Какова цена проблемы?', text: 'Поиск специалиста отнимает время и может не решить проблему, а технические неисправности грозят недовольством клиентов или полным простоем бизнеса.' },
               { title: 'Почему актуально сейчас?', text: 'В условиях роста расходов и падения спроса бизнес ищет экономию: плановое обслуживание сокращает будущие издержки на срочные работы.' },
             ].map((c, i) => (
-              <div key={i} style={{ background: '#fff', borderRadius: 16, padding: 32, borderLeft: '4px solid #6B4FA0', boxShadow: '0 2px 12px rgba(0,0,0,0.06)' }}>
-                <h3 style={{ color: '#6B4FA0', fontSize: 16, fontWeight: 700, marginBottom: 16, marginTop: 0 }}>{c.title}</h3>
+              <div key={i} style={{ background: '#fff', borderRadius: 16, padding: 28, borderLeft: '4px solid #6B4FA0', boxShadow: '0 2px 12px rgba(0,0,0,0.06)' }}>
+                <h3 style={{ color: '#6B4FA0', fontSize: 16, fontWeight: 700, marginBottom: 12, marginTop: 0 }}>{c.title}</h3>
                 <p style={{ color: '#555', lineHeight: 1.7, margin: 0, fontSize: 15 }}>{c.text}</p>
               </div>
             ))}
@@ -116,14 +134,14 @@ export default function HomePage() {
       </section>
 
       {/* SOLUTION */}
-      <section style={{ padding: '80px 24px', background: '#fff' }}>
+      <section style={{ padding: '60px 24px', background: '#fff' }}>
         <div style={{ maxWidth: 1200, margin: '0 auto' }}>
-          <div style={{ textAlign: 'center', marginBottom: 56 }}>
+          <div style={{ textAlign: 'center', marginBottom: 48 }}>
             <div style={{ fontSize: 12, fontWeight: 700, color: '#2D6E5E', textTransform: 'uppercase', letterSpacing: '0.1em', marginBottom: 12 }}>Как мы работаем</div>
-            <h2 style={{ fontSize: 36, fontWeight: 800, color: '#1B3A2F', fontFamily: 'Manrope, sans-serif', margin: 0 }}>Наш подход</h2>
+            <h2 className="section-title" style={{ fontWeight: 800, color: '#1B3A2F', fontFamily: 'Manrope, sans-serif', margin: 0 }}>Наш подход</h2>
           </div>
-          <div style={{ display: 'grid', gridTemplateColumns: '2fr 1fr', gap: 32 }}>
-            <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 16 }}>
+          <div className="grid-solution">
+            <div className="grid-solution-inner">
               {[
                 { n: '01', title: 'Абонентский договор', text: 'Фиксированная ежемесячная плата по площади объекта; без скрытых наценок за срочность.' },
                 { n: '02', title: 'Плановый обход', text: 'Раз в месяц — электрика, ВК, ОВК, плотницкие; журнал работ и контрольные точки.' },
@@ -150,23 +168,23 @@ export default function HomePage() {
       </section>
 
       {/* SERVICES */}
-      <section id="services" style={{ padding: '80px 24px', background: '#F8F7FC' }}>
+      <section id="services" style={{ padding: '60px 24px', background: '#F8F7FC' }}>
         <div style={{ maxWidth: 1200, margin: '0 auto' }}>
-          <div style={{ textAlign: 'center', marginBottom: 56 }}>
+          <div style={{ textAlign: 'center', marginBottom: 48 }}>
             <div style={{ fontSize: 12, fontWeight: 700, color: '#6B4FA0', textTransform: 'uppercase', letterSpacing: '0.1em', marginBottom: 12 }}>Услуги</div>
-            <h2 style={{ fontSize: 36, fontWeight: 800, color: '#1B3A2F', fontFamily: 'Manrope, sans-serif', margin: 0 }}>Что входит в обслуживание</h2>
+            <h2 className="section-title" style={{ fontWeight: 800, color: '#1B3A2F', fontFamily: 'Manrope, sans-serif', margin: 0 }}>Что входит в обслуживание</h2>
           </div>
-          <div style={{ display: 'grid', gridTemplateColumns: '3fr 2fr', gap: 32 }}>
-            <div style={{ background: '#fff', borderRadius: 20, padding: 40, boxShadow: '0 2px 12px rgba(0,0,0,0.06)' }}>
-              <div style={{ fontSize: 11, fontWeight: 700, color: '#1B3A2F', textTransform: 'uppercase', letterSpacing: '0.1em', marginBottom: 28 }}>Базовый перечень услуг</div>
+          <div className="grid-services">
+            <div style={{ background: '#fff', borderRadius: 20, padding: '28px', boxShadow: '0 2px 12px rgba(0,0,0,0.06)' }}>
+              <div style={{ fontSize: 11, fontWeight: 700, color: '#1B3A2F', textTransform: 'uppercase', letterSpacing: '0.1em', marginBottom: 24 }}>Базовый перечень услуг</div>
               {[
                 { icon: '⚡', title: 'Электроснабжение', text: 'Проверка щитов, автоматов, УЗО, розеточных групп, освещения. Замеры на нагрев и максимальные токи.' },
                 { icon: '💧', title: 'Водоснабжение и водоотведение', text: 'Проверка кранов, смесителей, гибких подводок, сифонов и подключённого оборудования.' },
                 { icon: '🌀', title: 'Вентиляция и кондиционирование', text: 'Чистка фильтров, осмотр вытяжек и дренажа кондиционеров, проверка автоматики.' },
                 { icon: '🔨', title: 'Мелкие плотницкие работы', text: 'Ремонт дверей, мебели, доводчиков, плинтусов и мелких конструкций.' },
               ].map((s, i) => (
-                <div key={i} style={{ display: 'flex', gap: 16, marginBottom: i < 3 ? 24 : 0, paddingBottom: i < 3 ? 24 : 0, borderBottom: i < 3 ? '1px solid #f0f0f0' : 'none' }}>
-                  <div style={{ fontSize: 22, flexShrink: 0, width: 40, textAlign: 'center' }}>{s.icon}</div>
+                <div key={i} style={{ display: 'flex', gap: 16, marginBottom: i < 3 ? 20 : 0, paddingBottom: i < 3 ? 20 : 0, borderBottom: i < 3 ? '1px solid #f0f0f0' : 'none' }}>
+                  <div style={{ fontSize: 22, flexShrink: 0, width: 36, textAlign: 'center' }}>{s.icon}</div>
                   <div>
                     <div style={{ fontWeight: 600, color: '#1B3A2F', marginBottom: 6 }}>{s.title}</div>
                     <div style={{ fontSize: 14, color: '#666', lineHeight: 1.6 }}>{s.text}</div>
@@ -175,10 +193,10 @@ export default function HomePage() {
               ))}
             </div>
             <div style={{ display: 'flex', flexDirection: 'column', gap: 16 }}>
-              <div style={{ background: '#1B3A2F', borderRadius: 20, padding: 32, color: '#fff' }}>
+              <div style={{ background: '#1B3A2F', borderRadius: 20, padding: 28, color: '#fff' }}>
                 <div style={{ fontSize: 11, fontWeight: 700, color: '#6ee7b7', textTransform: 'uppercase', letterSpacing: '0.1em', marginBottom: 8 }}>Тариф</div>
-                <div style={{ fontSize: 48, fontWeight: 800, marginBottom: 4 }}>500 ₽</div>
-                <div style={{ color: 'rgba(255,255,255,0.6)', fontSize: 14 }}>от … за м² в месяц · абонентская плата</div>
+                <div style={{ fontSize: 42, fontWeight: 800, marginBottom: 4 }}>500 ₽</div>
+                <div style={{ color: 'rgba(255,255,255,0.6)', fontSize: 14 }}>от ... за м² в месяц</div>
               </div>
               <div style={{ background: '#fff', borderRadius: 16, padding: 24, boxShadow: '0 2px 12px rgba(0,0,0,0.06)' }}>
                 <div style={{ fontSize: 11, fontWeight: 700, color: '#1B3A2F', textTransform: 'uppercase', letterSpacing: '0.1em', marginBottom: 16 }}>Личный кабинет</div>
@@ -193,32 +211,31 @@ export default function HomePage() {
         </div>
       </section>
 
-
       {/* TEAM */}
-      <section id="team" style={{ padding: '80px 24px', background: '#fff' }}>
+      <section id="team" style={{ padding: '60px 24px', background: '#fff' }}>
         <div style={{ maxWidth: 1200, margin: '0 auto' }}>
-          <div style={{ textAlign: 'center', marginBottom: 56 }}>
+          <div style={{ textAlign: 'center', marginBottom: 48 }}>
             <div style={{ fontSize: 12, fontWeight: 700, color: '#2D6E5E', textTransform: 'uppercase', letterSpacing: '0.1em', marginBottom: 12 }}>Команда</div>
-            <h2 style={{ fontSize: 36, fontWeight: 800, color: '#1B3A2F', fontFamily: 'Manrope, sans-serif', margin: 0 }}>Почему именно мы?</h2>
+            <h2 className="section-title" style={{ fontWeight: 800, color: '#1B3A2F', fontFamily: 'Manrope, sans-serif', margin: 0 }}>Почему именно мы?</h2>
           </div>
-          <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 24 }}>
-            <div style={{ background: '#F8F7FC', borderRadius: 20, padding: 40 }}>
-              <div style={{ fontSize: 11, fontWeight: 700, color: '#1B3A2F', textTransform: 'uppercase', letterSpacing: '0.1em', marginBottom: 24 }}>Обо мне</div>
-              <div style={{ display: 'flex', gap: 20, alignItems: 'flex-start' }}>
-                <div style={{ width: 72, height: 72, background: '#1B3A2F', borderRadius: 16, display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#fff', fontSize: 24, fontWeight: 700, flexShrink: 0 }}>А</div>
+          <div className="grid-team">
+            <div style={{ background: '#F8F7FC', borderRadius: 20, padding: '28px' }}>
+              <div style={{ fontSize: 11, fontWeight: 700, color: '#1B3A2F', textTransform: 'uppercase', letterSpacing: '0.1em', marginBottom: 20 }}>О руководителе</div>
+              <div style={{ display: 'flex', gap: 16, alignItems: 'flex-start' }}>
+                <div style={{ width: 56, height: 56, background: '#1B3A2F', borderRadius: 14, display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#fff', fontSize: 20, fontWeight: 700, flexShrink: 0 }}>А</div>
                 <div>
-                  <div style={{ fontWeight: 700, color: '#1B3A2F', fontSize: 18, marginBottom: 4 }}>Александр</div>
-                  <div style={{ fontSize: 13, color: '#888', marginBottom: 12 }}>Главный инженер больницы, Санкт-Петербург</div>
+                  <div style={{ fontWeight: 700, color: '#1B3A2F', fontSize: 16, marginBottom: 4 }}>Александр</div>
+                  <div style={{ fontSize: 13, color: '#888', marginBottom: 10 }}>Главный инженер, Санкт-Петербург</div>
                   <p style={{ color: '#555', fontSize: 14, lineHeight: 1.7, margin: 0 }}>Начинал с электромонтажа ещё во время учёбы. Работал энергетиком в больнице, стал начальником коммунальной службы. Уже почти 10 лет — главный инженер больницы в Санкт-Петербурге.</p>
                 </div>
               </div>
             </div>
-            <div style={{ background: '#F8F7FC', borderRadius: 20, padding: 40 }}>
-              <div style={{ fontSize: 11, fontWeight: 700, color: '#1B3A2F', textTransform: 'uppercase', letterSpacing: '0.1em', marginBottom: 24 }}>О команде</div>
-              <p style={{ color: '#555', lineHeight: 1.7, marginBottom: 24, fontSize: 14 }}>Создание команды специалистов 24/7 не станет новой задачей. За время работы сложились знакомства с профессионалами различного профиля, готовыми работать на общий результат.</p>
-              <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: 10 }}>
+            <div style={{ background: '#F8F7FC', borderRadius: 20, padding: '28px' }}>
+              <div style={{ fontSize: 11, fontWeight: 700, color: '#1B3A2F', textTransform: 'uppercase', letterSpacing: '0.1em', marginBottom: 20 }}>О команде</div>
+              <p style={{ color: '#555', lineHeight: 1.7, marginBottom: 20, fontSize: 14 }}>Создание команды специалистов 24/7 не станет новой задачей. За время работы сложились знакомства с профессионалами различного профиля, готовыми работать на общий результат.</p>
+              <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: 8 }}>
                 {['Электрик', 'Сантехник', 'Вентиляционщик', 'Плотник', 'Диспетчер', 'Инженер'].map(r => (
-                  <div key={r} style={{ background: '#fff', borderRadius: 10, padding: '10px 8px', textAlign: 'center', fontSize: 13, fontWeight: 500, color: '#1B3A2F', boxShadow: '0 1px 4px rgba(0,0,0,0.06)' }}>{r}</div>
+                  <div key={r} style={{ background: '#fff', borderRadius: 10, padding: '8px 6px', textAlign: 'center', fontSize: 12, fontWeight: 500, color: '#1B3A2F', boxShadow: '0 1px 4px rgba(0,0,0,0.06)' }}>{r}</div>
                 ))}
               </div>
             </div>
@@ -227,47 +244,47 @@ export default function HomePage() {
       </section>
 
       {/* CONTACT FORM */}
-      <section id="contact" style={{ padding: '80px 24px', background: '#F8F7FC' }}>
+      <section id="contact" style={{ padding: '60px 24px', background: '#F8F7FC' }}>
         <div style={{ maxWidth: 680, margin: '0 auto' }}>
-          <div style={{ textAlign: 'center', marginBottom: 48 }}>
+          <div style={{ textAlign: 'center', marginBottom: 40 }}>
             <div style={{ fontSize: 12, fontWeight: 700, color: '#6B4FA0', textTransform: 'uppercase', letterSpacing: '0.1em', marginBottom: 12 }}>Связаться</div>
-            <h2 style={{ fontSize: 36, fontWeight: 800, color: '#1B3A2F', fontFamily: 'Manrope, sans-serif', margin: '0 0 12px' }}>Оставить заявку</h2>
-            <p style={{ color: '#888', margin: 0 }}>Заполните форму — свяжемся в течение часа</p>
+            <h2 className="section-title" style={{ fontWeight: 800, color: '#1B3A2F', fontFamily: 'Manrope, sans-serif', margin: '0 0 12px' }}>Оставить заявку</h2>
+            <p style={{ color: '#888', margin: 0, fontSize: 15 }}>Заполните форму — свяжемся в течение часа</p>
           </div>
-          <form onSubmit={handleSubmit} style={{ background: '#fff', borderRadius: 20, padding: 40, boxShadow: '0 4px 24px rgba(0,0,0,0.08)' }}>
-            <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 16, marginBottom: 16 }}>
+          <form onSubmit={handleSubmit} style={{ background: '#fff', borderRadius: 20, padding: '28px', boxShadow: '0 4px 24px rgba(0,0,0,0.08)' }}>
+            <div className="grid-form-2" style={{ marginBottom: 16 }}>
               <div>
                 <label style={{ display: 'block', fontSize: 13, fontWeight: 600, color: '#444', marginBottom: 8 }}>Имя *</label>
-                <input required value={formData.name} onChange={e => setFormData({ ...formData, name: e.target.value })} style={{ width: '100%', border: '1px solid #e5e7eb', borderRadius: 12, padding: '12px 16px', fontSize: 14, outline: 'none', boxSizing: 'border-box' }} placeholder="Ваше имя" />
+                <input required value={formData.name} onChange={e => setFormData({ ...formData, name: e.target.value })} style={inputStyle} placeholder="Ваше имя" />
               </div>
               <div>
                 <label style={{ display: 'block', fontSize: 13, fontWeight: 600, color: '#444', marginBottom: 8 }}>Телефон *</label>
-                <input required type="tel" value={formData.phone} onChange={e => setFormData({ ...formData, phone: e.target.value })} style={{ width: '100%', border: '1px solid #e5e7eb', borderRadius: 12, padding: '12px 16px', fontSize: 14, outline: 'none', boxSizing: 'border-box' }} placeholder="+7 (___) ___-__-__" />
+                <input required type="tel" value={formData.phone} onChange={e => setFormData({ ...formData, phone: e.target.value })} style={inputStyle} placeholder="+7 (___) ___-__-__" />
               </div>
             </div>
-            <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 16, marginBottom: 16 }}>
+            <div className="grid-form-2" style={{ marginBottom: 16 }}>
               <div>
                 <label style={{ display: 'block', fontSize: 13, fontWeight: 600, color: '#444', marginBottom: 8 }}>Email</label>
-                <input type="email" value={formData.email} onChange={e => setFormData({ ...formData, email: e.target.value })} style={{ width: '100%', border: '1px solid #e5e7eb', borderRadius: 12, padding: '12px 16px', fontSize: 14, outline: 'none', boxSizing: 'border-box' }} placeholder="email@example.com" />
+                <input type="email" value={formData.email} onChange={e => setFormData({ ...formData, email: e.target.value })} style={inputStyle} placeholder="email@example.com" />
               </div>
               <div>
                 <label style={{ display: 'block', fontSize: 13, fontWeight: 600, color: '#444', marginBottom: 8 }}>Площадь, м²</label>
-                <input type="number" value={formData.objectArea} onChange={e => setFormData({ ...formData, objectArea: e.target.value })} style={{ width: '100%', border: '1px solid #e5e7eb', borderRadius: 12, padding: '12px 16px', fontSize: 14, outline: 'none', boxSizing: 'border-box' }} placeholder="80" />
+                <input type="number" value={formData.objectArea} onChange={e => setFormData({ ...formData, objectArea: e.target.value })} style={inputStyle} placeholder="80" />
               </div>
             </div>
             <div style={{ marginBottom: 16 }}>
               <label style={{ display: 'block', fontSize: 13, fontWeight: 600, color: '#444', marginBottom: 8 }}>Адрес объекта *</label>
-              <input required value={formData.objectAddress} onChange={e => setFormData({ ...formData, objectAddress: e.target.value })} style={{ width: '100%', border: '1px solid #e5e7eb', borderRadius: 12, padding: '12px 16px', fontSize: 14, outline: 'none', boxSizing: 'border-box' }} placeholder="Санкт-Петербург, ул. Примерная, д. 1" />
+              <input required value={formData.objectAddress} onChange={e => setFormData({ ...formData, objectAddress: e.target.value })} style={inputStyle} placeholder="Санкт-Петербург, ул. Примерная, д. 1" />
             </div>
             <div style={{ marginBottom: 16 }}>
               <label style={{ display: 'block', fontSize: 13, fontWeight: 600, color: '#444', marginBottom: 8 }}>Тип объекта</label>
-              <select value={formData.objectType} onChange={e => setFormData({ ...formData, objectType: e.target.value })} style={{ width: '100%', border: '1px solid #e5e7eb', borderRadius: 12, padding: '12px 16px', fontSize: 14, outline: 'none', background: '#fff', boxSizing: 'border-box' }}>
+              <select value={formData.objectType} onChange={e => setFormData({ ...formData, objectType: e.target.value })} style={{ ...inputStyle, background: '#fff' }}>
                 {['Кафе/ресторан', 'Салон красоты', 'Офис', 'Лаборатория/клиника', 'Другое'].map(t => <option key={t}>{t}</option>)}
               </select>
             </div>
             <div style={{ marginBottom: 20 }}>
               <label style={{ display: 'block', fontSize: 13, fontWeight: 600, color: '#444', marginBottom: 8 }}>Описание запроса *</label>
-              <textarea required rows={4} value={formData.description} onChange={e => setFormData({ ...formData, description: e.target.value })} style={{ width: '100%', border: '1px solid #e5e7eb', borderRadius: 12, padding: '12px 16px', fontSize: 14, outline: 'none', resize: 'none', fontFamily: 'inherit', boxSizing: 'border-box' }} placeholder="Опишите вашу задачу или проблему..." />
+              <textarea required rows={4} value={formData.description} onChange={e => setFormData({ ...formData, description: e.target.value })} style={{ ...inputStyle, resize: 'none', fontFamily: 'inherit' }} placeholder="Опишите вашу задачу или проблему..." />
             </div>
             <div style={{ display: 'flex', gap: 10, alignItems: 'flex-start', marginBottom: 24 }}>
               <input type="checkbox" id="consent" checked={formData.consent} onChange={e => setFormData({ ...formData, consent: e.target.checked })} style={{ marginTop: 2, accentColor: '#1B3A2F', flexShrink: 0 }} />
@@ -283,16 +300,16 @@ export default function HomePage() {
       </section>
 
       {/* FOOTER */}
-      <footer style={{ background: '#1B3A2F', color: '#fff', padding: '48px 24px' }}>
-        <div style={{ maxWidth: 1200, margin: '0 auto', display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 24, textAlign: 'center' }}>
+      <footer style={{ background: '#1B3A2F', color: '#fff', padding: '40px 24px' }}>
+        <div style={{ maxWidth: 1200, margin: '0 auto', display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 20, textAlign: 'center' }}>
           <div style={{ fontSize: 28, fontWeight: 800, fontFamily: 'Manrope, sans-serif' }}>А-57</div>
           <div style={{ color: 'rgba(255,255,255,0.5)', fontSize: 14 }}>Обслуживание инженерных систем и зданий</div>
-          <div style={{ display: 'flex', gap: 24, flexWrap: 'wrap', justifyContent: 'center' }}>
+          <div style={{ display: 'flex', gap: 20, flexWrap: 'wrap', justifyContent: 'center' }}>
             <a href="mailto:a-57service@mail.ru" style={{ color: 'rgba(255,255,255,0.6)', textDecoration: 'none', fontSize: 14 }}>a-57service@mail.ru</a>
             <a href="https://a-57.рф" style={{ color: 'rgba(255,255,255,0.6)', textDecoration: 'none', fontSize: 14 }}>a-57.рф</a>
             <a href="/login" style={{ color: 'rgba(255,255,255,0.6)', textDecoration: 'none', fontSize: 14 }}>Личный кабинет</a>
           </div>
-          <div style={{ display: 'flex', gap: 20, flexWrap: 'wrap', justifyContent: 'center', borderTop: '1px solid rgba(255,255,255,0.1)', paddingTop: 20, width: '100%' }}>
+          <div style={{ display: 'flex', gap: 16, flexWrap: 'wrap', justifyContent: 'center', borderTop: '1px solid rgba(255,255,255,0.1)', paddingTop: 16, width: '100%' }}>
             <a href="/privacy" style={{ color: 'rgba(255,255,255,0.5)', textDecoration: 'none', fontSize: 13 }}>Политика конфиденциальности</a>
             <a href="/consent" style={{ color: 'rgba(255,255,255,0.5)', textDecoration: 'none', fontSize: 13 }}>Согласие на обработку ПДн</a>
           </div>
